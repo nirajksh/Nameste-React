@@ -20,6 +20,7 @@
   "homepage": "https://github.com/nirajksh/Nameste-React#readme",
   "devDependencies": {
     "@babel/core": "^7.22.5",
+    "@babel/preset-typescript": "^7.22.5",
     "babel-plugin-transform-remove-console": "^6.9.4",
     "parcel": "^2.9.2",
     "process": "^0.11.10"
@@ -29,6 +30,6 @@
     "react-dom": "^18.2.0"
   },
   "browserslist": [
-    "last 2 versions"
+    "last 10 Chrome versions"
   ]
 }
