@@ -1,5 +1,7 @@
+import { useState } from "react"
 import { logo } from "../Constant"
 const Header =()=>{
+  const [login ,setLogin] =useState(true)
 
     const Title = ()=>{
         return (
@@ -8,10 +10,15 @@ const Header =()=>{
           </a>
         )
     }
+
     
     return (
       <div className='header'>
-        <Title/>
+        <Title/> 
+        <div>{
+          login?<button onClick={()=>setLogin(false)}>login</button>:<button onClick={()=>setLogin(true)}>logout</button>}
+          
+        </div>
         <div className='navbar'>
           <ul>
             <li>About</li>
