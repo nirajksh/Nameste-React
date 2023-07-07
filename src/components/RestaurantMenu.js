@@ -1,30 +1,40 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { FETCH_MENU_URL } from '../Constant'
-import { MENU } from '../Constant'
+import { IMG_CDN_URL } from '../Constant'
+
 
 const RestaurantMenu = () => {
-    const[restaurant,setRestaurant]=useState(null)
+   const[restaurant,setRestaurant]=useState(null)
 
-    const {resId} = useParams();
+    const {resId} = useParams({});
+
+   
+    
 
     useEffect(()=>{
         getRestaurantInfo();
     },[])
     const getRestaurantInfo= async ()=>{
-        const data = await fetch(MENU+resId);
-        const res= await data.json()
-        console.log(res?.data)
-        setRestaurant(res.data)
-
+        const data = await fetch(`https://corsproxy.io/?https://www.swiggy.com/dapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=19.0759837&lng=72.8776559&restaurantId=${resId}&submitAction=ENTER`);
+        const json= await data.json()
+        console.log(json?.data?.cards[0]?.card?.card?.info?.name)
+        setRestaurant(json?.data)
+//resMenu?.cards[0]?.card?.card?.info?
     }
 
   return (
     <div className='menu'>
         <div>
-            {/* <h1>{restaurant.resId}</h1>
-            <h2>{restaurant.name}</h2> */}
+          <h1>{resId}</h1>
+          <h2> {restaurant?.cards[0]?.card?.card?.info?.name}</h2>
+          <img src={IMG_CDN_URL+restaurant?.cards[0]?.card?.card?.info?.cloudinaryImageId}/>
+         
+          <h2>
+            {restaurant?.cards[0]?.card?.card?.info?.areaName} ,{" "}
+            {restaurant?.cards[0]?.card?.card?.info?.city}
+          </h2>
         </div>
+        
     </div>
   )
 }

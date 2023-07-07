@@ -11,12 +11,16 @@
 .navbar > ul{
     display: flex;
     list-style-type: none;
+    padding: 5px;
+  gap: 7px;
+
    
  }
  .navbar > ul >li{
     padding: 10px;
     font-size: large;
     font-weight: 800;
+    
  }
  .card{
    width: 200px;
