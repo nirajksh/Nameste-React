@@ -1,44 +1,54 @@
-import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
-import { IMG_CDN_URL } from '../Constant'
-import Shimmer from './Shimmer'
-
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { IMG_CDN_URL } from "../Constant";
+import useRestaurant from "../Utils/useRestaurant";
+import Shimmer from "./Shimmer";
+import { addItem } from "../Utils/cartSlice";
+import { useDispatch } from "react-redux";
 
 const RestaurantMenu = () => {
-   const[restaurant,setRestaurant]=useState(null)
+  const { resId } = useParams();
 
-    const {resId} = useParams({});
+  const restaurant = useRestaurant(resId);
 
-   
-    
+  const dispatch = useDispatch();
 
-    useEffect(()=>{
-        getRestaurantInfo();
-    },[])
-    const getRestaurantInfo= async ()=>{
-        const data = await fetch(`https://corsproxy.io/?https://www.swiggy.com/dapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=19.0759837&lng=72.8776559&restaurantId=${resId}&submitAction=ENTER`);
-        const json= await data.json()
-        console.log(json?.data?.cards[0]?.card?.card?.info?.name)
-        setRestaurant(json?.data)
-//resMenu?.cards[0]?.card?.card?.info?
-    }
+  const addFoodItem = (item) => {
+    dispatch(addItem(item));
+  };
 
-  return ! restaurant ?(<Shimmer/>):
-  (
-    <div className='menu'>
-        <div>
-          <h1>{resId}</h1>
-          <h2> {restaurant?.cards[0]?.card?.card?.info?.name}</h2>
-          <img src={IMG_CDN_URL+restaurant?.cards[0]?.card?.card?.info?.cloudinaryImageId}/>
-         
-          <h2>
-            {restaurant?.cards[0]?.card?.card?.info?.areaName} ,{" "}
-            {restaurant?.cards[0]?.card?.card?.info?.city}
-          </h2>
-        </div>
-        
+  return !restaurant ? (
+    <Shimmer />
+  ) : (
+    <div className="flex">
+      <div>
+        <h1>Restraunt id: {resId}</h1>
+        <h2>{restaurant?.name}</h2>
+        <img src={IMG_CDN_URL + restaurant?.cloudinaryImageId} />
+        <h3>{restaurant?.area}</h3>
+        <h3>{restaurant?.city}</h3>
+        <h3>{restaurant?.avgRating} stars</h3>
+        <h3>{restaurant?.costForTwoMsg}</h3>
+      </div>
+      {/* <div className="p-5">
+        <h1>Menu</h1>
+        <ul data-testid="menu">
+          {Object.values(restaurant?.menu?.items).map((item) => (
+            <li key={item.id}>
+              {item.name} -{" "}
+              <button
+                data-testid="addBtn"
+                className="p-1 bg-green-50"
+                onClick={() => addFoodItem(item)}
+              >
+                Add
+              </button>
+            </li>
+          ))}
+        </ul>
+      </div> */}
     </div>
-  )
-}
+  );
+};
 
-export default RestaurantMenu
+export default RestaurantMenu;

@@ -10,12 +10,14 @@ import Offer from './components/Offer'
 import Cart from './components/Cart'
 import About from './components/About'
 import RestaurantMenu from './components/RestaurantMenu'
+import store from './Utils/store'
+import { Provider } from 'react-redux'
     const AppLayout =()=>{
-    return (<>
+    return (<Provider store={store}>
     <Header/>
     <Outlet/>
     <Footer/>
-    </>)
+    </Provider>)
 }
 
 const Approuter = createBrowserRouter([
