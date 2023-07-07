@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { IMG_CDN_URL } from '../Constant'
+import Shimmer from './Shimmer'
 
 
 const RestaurantMenu = () => {
@@ -22,7 +23,8 @@ const RestaurantMenu = () => {
 //resMenu?.cards[0]?.card?.card?.info?
     }
 
-  return (
+  return ! restaurant ?(<Shimmer/>):
+  (
     <div className='menu'>
         <div>
           <h1>{resId}</h1>

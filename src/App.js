@@ -10,8 +10,7 @@ import Offer from './components/Offer'
 import Cart from './components/Cart'
 import About from './components/About'
 import RestaurantMenu from './components/RestaurantMenu'
-import AboutClass from './components/AboutClass'
-const AppLayout =()=>{
+    const AppLayout =()=>{
     return (<>
     <Header/>
     <Outlet/>
@@ -31,12 +30,7 @@ const Approuter = createBrowserRouter([
             {
                 path:"/about",
                 element:<About/>,
-                children:[
-                    {
-                        path:"/aboutclass",
-                element:<AboutClass/>,
-            },
-                ]
+                
             },
             {
                 path:"/contact",
